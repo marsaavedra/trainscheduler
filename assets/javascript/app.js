@@ -21,7 +21,7 @@ $('.btn').on("click", function(event){
     var trainName = $('#trainName-input').val().trim();
     var destination = $('#destination-input').val().trim();
     var frequency = $('#frequency-input').val().trim(); 
-    var firstTrain = moment($('#time-input').val().trim(), "HH:mm").subtract(1, "years");
+    var firstTrain = moment($('#time-input').val().trim(), "HH:mm").subtract(1, "years").format("X");
     console.log("firstTrain: " + firstTrain);
     
     //connects to firbase (added F at the end to indicate that that property belongs in firebase)
@@ -57,7 +57,7 @@ database.ref().on("child_added", function(childSnapshot, prevChildKey){
 	var tName = childSnapshot.val().name;
 	var tDestination = childSnapshot.val().destination;
 	var tFrequency = childSnapshot.val().frequency;
-	var tFirstTrain = moment(childSnapshot.val().firstTrain, "HH:mm").subtract(1, "years");
+	var tFirstTrain = childSnapshot.val().firstTrain;
     
     console.log("tFirstTrain: " + tFirstTrain);
 
@@ -66,7 +66,7 @@ database.ref().on("child_added", function(childSnapshot, prevChildKey){
     
     console.log("current time: "+ moment(currentTime).format("HH:mm"));
     
-	var differenceTimes = moment().diff(moment(tFirstTrain), "minutes");
+	var differenceTimes = moment().diff(moment.unix(tFirstTrain), "minutes");
     
     console.log("differenceTime: " + differenceTimes);
     
