@@ -24,7 +24,7 @@ $('.btn').on("click", function(event){
     var firstTrain = moment($('#time-input').val().trim(), "HH:mm").subtract(1, "years").format("X");
     console.log("firstTrain: " + firstTrain);
     
-    //connects to firbase (added F at the end to indicate that that property belongs in firebase)
+    //connects to firbase 
     var newTrain = {
         name : trainName,
         destination : destination,
